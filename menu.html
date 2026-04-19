@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | The Daily Grind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo">THE DAILY <span>GRIND</span></div>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="home.html" onclick="toggleMenu()">Home</a></li>
+            <li class="profile-link" style="display: none;"><a href="profile.html" onclick="toggleMenu()">Profile</a></li>
+            <li><a href="coffee.html" onclick="toggleMenu()">Coffee & Tea</a></li>
+            <li><a href="breakfast.html" onclick="toggleMenu()">Breakfast</a></li>
+            <li><a href="dessert.html" onclick="toggleMenu()">Dessert</a></li>
+        </ul>
+        <div class="nav-right-spacer" id="nav-auth-controls">
+            <button id="nav-signup-btn" onclick="openAuth('signup')" class="logout-btn" style="margin-right: 10px; border-color: var(--accent); color: var(--accent); display: none;">Sign Up</button>
+            <button id="nav-login-btn" onclick="openAuth('login')" class="logout-btn" style="margin-right: 10px; display: none;">Login</button>
+            <button id="nav-logout-btn" onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <section class="menu-section">
+        <h1 id="coffee">Coffee & Tea</h1>
+        <div class="menu-container">
+            <a href="details.html?id=caramel-macchiato" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/44/c8/68/44c8684d4f81e86197c69abfbbf74b56.jpg" alt="Caramel Macchiato" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Caramel Macchiato</h3>
+                    <span class="price">$5.75</span>
+                    <div class="menu-details">
+                        <p>Fresh espresso with velvet milk and rich caramel.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=oat-milk-latte" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/f6/59/e9/f659e9e7ddb7986877cdd9f052a3114a.jpg" alt="Oat Milk Latte" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Oat Milk Latte</h3>
+                    <span class="price">$5.50</span>
+                    <div class="menu-details">
+                        <p>Creamy oat milk paired with our signature roast.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=cold-brew" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/a0/8b/61/a08b618b6bbe45c5f3ae62ffdaff1d7d.jpg" alt="Cold Brew" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Cold Brew</h3>
+                    <span class="price">$6.00</span>
+                    <div class="menu-details">
+                        <p>Slow-steeped for 24 hours for ultimate smoothness.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=espresso" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg" alt="Espresso" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Espresso</h3>
+                    <span class="price">$4.25</span>
+                    <div class="menu-details">
+                        <p>A bold, concentrated shot of pure coffee essence.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=matcha-latte" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/f3/35/3d/f3353da22218a4de90629ea801d6d0ff.jpg" alt="Matcha Latte" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Matcha Latte</h3>
+                    <span class="price">$5.75</span>
+                    <div class="menu-details">
+                        <p>Stone-ground premium matcha whisked with creamy steamed milk.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=cortado" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/cb/ff/53/cbff53f6656a90d44d4fb33ba4f07e2b.jpg" alt="Cortado" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Cortado</h3>
+                    <span class="price">$5.00</span>
+                    <div class="menu-details">
+                        <p>Equal parts espresso and warm silky steamed milk.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <h1 id="breakfast" style="margin-top: 80px;">Breakfast Specials</h1>
+        <div class="menu-container">
+            <a href="details.html?id=avocado-toast" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=1200&auto=format&fit=crop" alt="Avocado Toast" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Avocado Toast</h3>
+                    <span class="price">$8.50</span>
+                    <div class="menu-details">
+                        <p>Fresh avocado, chili flakes, and poached egg on sourdough.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=pancakes" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=1200&auto=format&fit=crop" alt="Classic Pancakes" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Classic Pancakes</h3>
+                    <span class="price">$9.00</span>
+                    <div class="menu-details">
+                        <p>Fluffy buttermilk pancakes with maple syrup and berries.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=breakfast-burrito" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=1200&auto=format&fit=crop" alt="Breakfast Burrito" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Breakfast Burrito</h3>
+                    <span class="price">$10.00</span>
+                    <div class="menu-details">
+                        <p>Scrambled eggs, chorizo, avocado, and salsa.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <h1 id="dessert" style="margin-top: 80px;">Desserts & Pastries</h1>
+        <div class="menu-container">
+            <a href="details.html?id=tiramisu" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/32/e5/cd/32e5cdbaeead33b470fc72653c6071a2.jpg" alt="Tiramisu" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Tiramisu</h3>
+                    <span class="price">$6.50</span>
+                    <div class="menu-details">
+                        <p>Classic Italian dessert with coffee-soaked ladyfingers.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=strawberry-cheesecake" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/a1/6f/ee/a16feec47b6037e76b672b72078a9a6a.jpg" alt="Strawberry Cheesecake" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Strawberry Cheesecake</h3>
+                    <span class="price">$7.00</span>
+                    <div class="menu-details">
+                        <p>Creamy cheesecake topped with fresh strawberries.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="details.html?id=cinnamon-rolls" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/12/ac/6b/12ac6b6baa09b1894fcbfb13fe515463.jpg" alt="Cinnamon Rolls" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Cinnamon Rolls</h3>
+                    <span class="price">$4.50</span>
+                    <div class="menu-details">
+                        <p>Freshly baked rolls with cinnamon sugar and glaze.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 The Daily Grind</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

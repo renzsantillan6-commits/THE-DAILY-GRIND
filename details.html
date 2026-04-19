@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Details | The Daily Grind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo">THE DAILY <span>GRIND</span></div>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li class="profile-link" style="display: none;"><a href="profile.html">Profile</a></li>
+            <li><a href="coffee.html">Coffee & Tea</a></li>
+            <li><a href="breakfast.html">Breakfast</a></li>
+            <li><a href="dessert.html">Dessert</a></li>
+        </ul>
+        <div class="nav-right-spacer">
+            <button onclick="window.history.back()" class="logout-btn">Go Back</button>
+        </div>
+    </nav>
+
+    <section class="menu-section" style="min-height: 80vh; display: flex; align-items: center; justify-content: center; overflow-x: hidden;">
+        <div class="menu-item" style="max-width: 1000px; width: 90%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; transform: none !important; opacity: 1 !important; animation: none !important; border-radius: 20px; padding: 0;">
+            <div class="menu-text-content" style="flex: 1; padding: 40px; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                <h2 id="detail-name" style="font-size: 2.5rem; color: var(--accent); opacity: 0; animation: landslideIn 0.8s ease-out forwards; animation-delay: 0.1s; line-height: 1.1;"></h2>
+                <span id="detail-price" class="price" style="font-size: 1.8rem; opacity: 0; animation: landslideIn 0.8s ease-out forwards; animation-delay: 0.2s; margin-top: 10px;"></span>
+                <p id="detail-desc" style="margin-top: 20px; font-size: 1.1rem; color: #fff; opacity: 0; animation: landslideIn 0.8s ease-out forwards; animation-delay: 0.3s;"></p>
+                <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; opacity: 0; animation: landslideIn 0.8s ease-out forwards; animation-delay: 0.4s;">
+                    <h4 style="color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-size: 1.2rem;">Product Details</h4>
+                    <p id="detail-full" style="color: #888; margin-top: 10px; line-height: 1.8; font-size: 1rem;"></p>
+                </div>
+                <button id="order-btn" class="view-menu-btn" style="width: 100%; border: none; cursor: pointer; opacity: 0; animation: landslideIn 0.8s ease-out forwards; animation-delay: 0.5s;">Order Now</button>
+            </div>
+            <img id="detail-img" src="" alt="" class="menu-img" style="flex: 0 0 400px; width: 400px; height: 400px; border-radius: 20px; opacity: 0; animation: landslideIn 0.8s ease-out forwards; animation-delay: 0.6s; margin: 20px;">
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const itemId = params.get('id');
+            
+            const data = {
+                'caramel-macchiato': {
+                    name: 'Caramel Macchiato',
+                    price: '$5.75',
+                    desc: 'Fresh espresso with velvet milk and rich caramel.',
+                    full: 'Our signature Caramel Macchiato is made with freshly steamed milk with vanilla-flavored syrup marked with espresso and topped with a caramel drizzle for an oh-so-sweet finish.',
+                    img: 'https://i.pinimg.com/1200x/44/c8/68/44c8684d4f81e86197c69abfbbf74b56.jpg'
+                },
+                'oat-milk-latte': {
+                    name: 'Oat Milk Latte',
+                    price: '$5.50',
+                    desc: 'Creamy oat milk paired with our signature roast.',
+                    full: 'Experience the smooth, nutty flavor of our Oat Milk Latte. Hand-crafted with our espresso and creamy oatmilk, it is a vegan-friendly favorite.',
+                    img: 'https://i.pinimg.com/736x/f6/59/e9/f659e9e7ddb7986877cdd9f052a3114a.jpg'
+                },
+                'cold-brew': {
+                    name: 'Cold Brew',
+                    price: '$6.00',
+                    desc: 'Slow-steeped for 24 hours for ultimate smoothness.',
+                    full: 'Handcrafted in small batches daily, slow-steeped in cool water for 20 hours. Our Cold Brew is made from a custom blend of beans grown to steep long and cold.',
+                    img: 'https://i.pinimg.com/1200x/a0/8b/61/a08b618b6bbe45c5f3ae62ffdaff1d7d.jpg'
+                },
+                'espresso': {
+                    name: 'Espresso',
+                    price: '$4.25',
+                    desc: 'A bold, concentrated shot of pure coffee essence.',
+                    full: 'Our smooth signature Espresso Roast with rich flavor and caramelly sweetness is at the very heart of everything we do.',
+                    img: 'https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg'
+                },
+                'matcha-latte': {
+                    name: 'Matcha Latte',
+                    price: '$5.75',
+                    desc: 'Stone-ground premium matcha whisked with creamy steamed milk.',
+                    full: 'Smooth and creamy matcha sweetened just right and served with steamed milk. This favorite will transport your senses to a calm, Zen state.',
+                    img: 'https://i.pinimg.com/1200x/f3/35/3d/f3353da22218a4de90629ea801d6d0ff.jpg'
+                },
+                'cortado': {
+                    name: 'Cortado',
+                    price: '$5.00',
+                    desc: 'Equal parts espresso and warm silky steamed milk.',
+                    full: 'A Spanish classic. Two shots of espresso cut with an equal amount of steamed milk to reduce the acidity while highlighting the coffee notes.',
+                    img: 'https://i.pinimg.com/736x/cb/ff/53/cbff53f6656a90d44d4fb33ba4f07e2b.jpg'
+                },
+                'avocado-toast': {
+                    name: 'Avocado Toast',
+                    price: '$8.50',
+                    desc: 'Fresh avocado, chili flakes, and poached egg on sourdough.',
+                    full: 'Thick-cut artisanal sourdough topped with smashed Hass avocado, organic chili flakes, sea salt, and a perfectly poached egg.',
+                    img: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=1200&auto=format&fit=crop'
+                },
+                'pancakes': {
+                    name: 'Classic Pancakes',
+                    price: '$9.00',
+                    desc: 'Fluffy buttermilk pancakes with maple syrup and berries.',
+                    full: 'A stack of three fluffy buttermilk pancakes served with 100% pure maple syrup, fresh seasonal berries, and a dollop of whipped butter.',
+                    img: 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=1200&auto=format&fit=crop'
+                },
+                'breakfast-burrito': {
+                    name: 'Breakfast Burrito',
+                    price: '$10.00',
+                    desc: 'Scrambled eggs, chorizo, avocado, and salsa.',
+                    full: 'Large flour tortilla filled with farm-fresh scrambled eggs, spicy chorizo, creamy avocado, black beans, and our house-made zesty salsa.',
+                    img: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=1200&auto=format&fit=crop'
+                },
+                'tiramisu': {
+                    name: 'Tiramisu',
+                    price: '$6.50',
+                    desc: 'Classic Italian dessert with coffee-soaked ladyfingers.',
+                    full: 'Layers of espresso-soaked ladyfingers and a light, airy mascarpone cream, dusted with high-quality cocoa powder.',
+                    img: 'https://i.pinimg.com/1200x/32/e5/cd/32e5cdbaeead33b470fc72653c6071a2.jpg'
+                },
+                'strawberry-cheesecake': {
+                    name: 'Strawberry Cheesecake',
+                    price: '$7.00',
+                    desc: 'Creamy cheesecake topped with fresh strawberries.',
+                    full: 'Rich and velvety New York-style cheesecake on a buttery graham cracker crust, finished with a fresh strawberry compote.',
+                    img: 'https://i.pinimg.com/736x/a1/6f/ee/a16feec47b6037e76b672b72078a9a6a.jpg'
+                },
+                'cinnamon-rolls': {
+                    name: 'Cinnamon Rolls',
+                    price: '$4.50',
+                    desc: 'Freshly baked rolls with cream cheese glaze.',
+                    full: 'Soft, fluffy dough swirled with aromatic cinnamon sugar and topped with a melt-in-your-mouth cream cheese frosting.',
+                    img: 'https://i.pinimg.com/1200x/12/ac/6b/12ac6b6baa09b1894fcbfb13fe515463.jpg'
+                },
+                'affogato': {
+                    name: 'Affogato',
+                    price: '$5.25',
+                    desc: 'A scoop of vanilla ice cream drowned in a shot of hot espresso.',
+                    full: 'The perfect Italian treat. A generous scoop of premium vanilla bean ice cream topped with a fresh, hot shot of our signature espresso roast.',
+                    img: 'https://i.pinimg.com/736x/fa/53/e3/fa53e3e1feb8a0cbaef9ff08d8304ed7.jpg'
+                }
+            };
+
+            const item = data[itemId];
+            if (item) {
+                document.getElementById('detail-img').src = item.img;
+                document.getElementById('detail-name').innerText = item.name;
+                document.getElementById('detail-price').innerText = item.price;
+                document.getElementById('detail-desc').innerText = item.desc;
+                document.getElementById('detail-full').innerText = item.full;
+                document.getElementById('order-btn').onclick = () => addToOrderHistory(item.name, item.price);
+            } else {
+                window.location.href = 'menu.html';
+            }
+        });
+    </script>
+</body>
+</html>

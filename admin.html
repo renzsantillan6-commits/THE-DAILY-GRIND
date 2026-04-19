@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | The Daily Grind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+            <div class="logo">THE DAILY <span>GRIND</span></div>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li class="admin-link"><a href="admin.html">Admin Panel</a></li>
+            <li class="profile-link"><a href="profile.html">Profile</a></li>
+            <li><a href="coffee.html">Coffee & Tea</a></li>
+            <li><a href="breakfast.html">Breakfast</a></li>
+            <li><a href="dessert.html">Dessert</a></li>
+        </ul>
+        <div class="nav-right-spacer">
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <section class="menu-section" style="min-height: 80vh;">
+        <h1>Customer Orders Management</h1>
+        <div style="max-width: 1000px; margin: 40px auto; text-align: left;">
+            <div id="admin-order-list">
+                <!-- All customer orders will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedName = localStorage.getItem('coffeeUserName');
+            if (savedName !== 'admin') {
+                alert("Access Denied. Admins only.");
+                window.location.href = 'home.html';
+                return;
+            }
+
+            const allOrders = JSON.parse(localStorage.getItem('coffeeOrders') || '{}');
+            const adminList = document.getElementById('admin-order-list');
+            const userNames = Object.keys(allOrders);
+
+            if (userNames.length === 0) {
+                adminList.innerHTML = '<p style="color: #666; text-align: center;">No orders found in the system.</p>';
+            } else {
+                userNames.forEach((user, userIdx) => {
+                    const userSection = document.createElement('div');
+                    userSection.style.marginBottom = '40px';
+                    userSection.style.animation = 'landslideIn 0.5s ease-out forwards';
+                    userSection.style.animationDelay = `${userIdx * 0.1}s`;
+
+                    userSection.innerHTML = `<h2 style="color: var(--accent); border-bottom: 1px solid #333; padding-bottom: 10px;">Customer: ${user}</h2>`;
+
+                    allOrders[user].forEach(order => {
+                        const orderItem = document.createElement('div');
+                        orderItem.className = 'menu-item';
+                        orderItem.style.display = 'flex';
+                        orderItem.style.justifyContent = 'space-between';
+                        orderItem.style.alignItems = 'center';
+                        orderItem.style.padding = '15px 20px';
+                        orderItem.style.margin = '10px 0';
+                        
+                        orderItem.innerHTML = `
+                            <div>
+                                <h3 style="margin: 0;">${order.name} (x${order.quantity || 1})</h3>
+                                <small style="color: #888;">Date: ${order.date} • Status: <b>${order.payment || 'Unpaid'}</b></small>
+                            </div>
+                            <span class="price" style="margin: 0;">${order.price}</span>`;
+                        userSection.appendChild(orderItem);
+                    });
+                    adminList.appendChild(userSection);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

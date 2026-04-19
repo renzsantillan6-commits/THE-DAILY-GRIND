@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee & Tea | The Daily Grind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+            <div class="logo">THE DAILY <span>GRIND</span></div>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="home.html" onclick="toggleMenu()">Home</a></li>
+            <li class="profile-link" style="display: none;"><a href="profile.html" onclick="toggleMenu()">Profile</a></li>
+            <li><a href="coffee.html" onclick="toggleMenu()">Coffee & Tea</a></li>
+            <li><a href="breakfast.html" onclick="toggleMenu()">Breakfast</a></li>
+            <li><a href="dessert.html" onclick="toggleMenu()">Dessert</a></li>
+        </ul>
+        <div class="nav-right-spacer">
+            <button id="nav-logout-btn" onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <section class="menu-section">
+        <h1>Coffee & Tea</h1>
+        <div class="menu-container">
+            <a href="details.html?id=caramel-macchiato" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/44/c8/68/44c8684d4f81e86197c69abfbbf74b56.jpg" alt="Caramel Macchiato" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Caramel Macchiato</h3>
+                    <span class="price">$5.75</span>
+                </div>
+            </a>
+            <a href="details.html?id=oat-milk-latte" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/f6/59/e9/f659e9e7ddb7986877cdd9f052a3114a.jpg" alt="Oat Milk Latte" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Oat Milk Latte</h3>
+                    <span class="price">$5.50</span>
+                </div>
+            </a>
+            <a href="details.html?id=cold-brew" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/a0/8b/61/a08b618b6bbe45c5f3ae62ffdaff1d7d.jpg" alt="Cold Brew" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Cold Brew</h3>
+                    <span class="price">$6.00</span>
+                </div>
+            </a>
+            <a href="details.html?id=espresso" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg" alt="Espresso" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Espresso</h3>
+                    <span class="price">$4.25</span>
+                </div>
+            </a>
+            <a href="details.html?id=matcha-latte" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/f3/35/3d/f3353da22218a4de90629ea801d6d0ff.jpg" alt="Matcha Latte" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Matcha Latte</h3>
+                    <span class="price">$5.75</span>
+                </div>
+            </a>
+            <a href="details.html?id=cortado" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/cb/ff/53/cbff53f6656a90d44d4fb33ba4f07e2b.jpg" alt="Cortado" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Cortado</h3>
+                    <span class="price">$5.00</span>
+                </div>
+            </a>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>

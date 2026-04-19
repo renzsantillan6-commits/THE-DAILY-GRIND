@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | The Daily Grind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+            <div class="logo">THE DAILY <span>GRIND</span></div>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li class="profile-link" style="display: none;"><a href="profile.html">Profile</a></li>
+            <li class="admin-link" style="display: none;"><a href="admin.html">Admin Panel</a></li>
+            <li><a href="coffee.html">Coffee & Tea</a></li>
+            <li><a href="breakfast.html">Breakfast</a></li>
+            <li><a href="dessert.html">Dessert</a></li>
+        </ul>
+        <div class="nav-right-spacer">
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <section class="menu-section" style="min-height: 80vh;">
+        <h1 id="user-welcome">Your Profile</h1>
+        <div style="max-width: 800px; margin: 40px auto; text-align: left;">
+            <h2 style="color: var(--accent); margin-bottom: 20px;">Active Orders (Unpaid)</h2>
+            <div id="order-list">
+                <!-- Orders will be injected here -->
+            </div>
+
+            <h2 style="color: var(--accent); margin-top: 60px; margin-bottom: 20px;">Receipts (Paid)</h2>
+            <div id="receipt-list">
+                <!-- Paid orders will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedName = localStorage.getItem('coffeeUserName');
+            if (!savedName) {
+                window.location.href = 'home.html';
+                return;
+            }
+
+            document.getElementById('user-welcome').innerText = `Welcome, ${savedName}`;
+
+            const allOrders = JSON.parse(localStorage.getItem('coffeeOrders') || '{}');
+            const userOrders = allOrders[savedName] || [];
+            const orderList = document.getElementById('order-list');
+            const receiptList = document.getElementById('receipt-list');
+
+            if (userOrders.length === 0) {
+                orderList.innerHTML = '<p style="color: #666;">You haven\'t placed any orders yet. Time for coffee?</p>';
+                receiptList.innerHTML = '<p style="color: #666;">No receipts found.</p>';
+            } else {
+                const originalOrders = [...userOrders];
+                let grandTotal = 0;
+                let unpaidTotal = 0;
+                let activeCount = 0;
+                let paidCount = 0;
+
+                userOrders.reverse().forEach((order, index) => {
+                    const originalIndex = originalOrders.length - 1 - index;
+                    const orderItem = document.createElement('div');
+                    orderItem.className = 'menu-item';
+                    orderItem.style.display = 'flex';
+                    orderItem.style.justifyContent = 'space-between';
+                    orderItem.style.alignItems = 'center';
+                    orderItem.style.padding = '20px';
+                    orderItem.style.marginBottom = '15px';
+                    orderItem.style.opacity = '0';
+                    orderItem.style.animation = 'landslideIn 0.5s ease-out forwards';
+                    orderItem.style.animationDelay = `${index * 0.1}s`;
+                    
+                    // Calculate subtotal for this item
+                    const priceValue = parseFloat(order.price.replace('$', '')) || 0;
+                    const qty = order.quantity || 1;
+                    const subtotal = priceValue * qty;
+                    grandTotal += subtotal;
+                    if ((order.payment || 'Unpaid') === 'Unpaid') unpaidTotal += subtotal;
+
+                    const paymentStatus = order.payment || 'Unpaid';
+
+                    orderItem.innerHTML = `
+                        <div>
+                            <h3 style="margin: 0;">${order.name}</h3>
+                            <small style="color: #888;">Ordered on ${order.date} • <b>${paymentStatus}</b></small>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; border: 1px solid #333;">
+                                <button onclick="updateOrderQuantity(${originalIndex}, -1)" style="background:none; border:none; color:var(--accent); cursor:pointer; font-size: 1.2rem; font-weight: bold;">-</button>
+                                <span style="min-width: 20px; text-align: center;">${qty}</span>
+                                <button onclick="updateOrderQuantity(${originalIndex}, 1)" style="background:none; border:none; color:var(--accent); cursor:pointer; font-size: 1.2rem; font-weight: bold;">+</button>
+                            </div>
+                            <span class="price" style="margin: 0; min-width: 80px; text-align: right;">$${subtotal.toFixed(2)}</span>
+                            ${paymentStatus === 'Unpaid' ? `<button onclick="payOrder(${originalIndex})" class="logout-btn" style="border-color: var(--accent); color: var(--accent);">Pay Now</button>` : ''}
+                            <button onclick="cancelOrder(${originalIndex})" class="logout-btn" style="border-color: #ff4444; color: #ff4444;">Cancel</button>
+                        </div>
+                    `;
+
+                    if (paymentStatus === 'Unpaid') {
+                        orderList.appendChild(orderItem);
+                        activeCount++;
+                    } else {
+                        receiptList.appendChild(orderItem);
+                        paidCount++;
+                    }
+                });
+
+                if (activeCount === 0) orderList.innerHTML = '<p style="color: #666;">No active orders.</p>';
+                if (paidCount === 0) receiptList.innerHTML = '<p style="color: #666;">No receipts found.</p>';
+
+                // Add Grand Total row at the bottom
+                const totalDiv = document.createElement('div');
+                totalDiv.style.marginTop = '30px';
+                totalDiv.style.padding = '20px';
+                totalDiv.style.borderTop = '2px solid var(--accent)';
+                totalDiv.style.display = 'flex';
+                totalDiv.style.justifyContent = 'space-between';
+                totalDiv.style.alignItems = 'center';
+
+                const hasUnpaid = userOrders.some(order => (order.payment || 'Unpaid') === 'Unpaid');
+
+                totalDiv.innerHTML = `
+                    <div>
+                        <h2 style="margin: 0;">Total Amount</h2>
+                        ${hasUnpaid ? `<button onclick="payAllOrders()" class="view-menu-btn" style="padding: 10px 20px; font-size: 1rem; margin-top: 10px; border: none; cursor: pointer;">Pay All Unpaid ($${unpaidTotal.toFixed(2)})</button>` : ''}
+                    </div>
+                    <span class="price" style="font-size: 2rem; margin: 0;">$${grandTotal.toFixed(2)}</span>
+                `;
+                orderList.appendChild(totalDiv);
+            }
+        });
+    </script>
+</body>
+</html>

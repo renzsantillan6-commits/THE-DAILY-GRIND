@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Grind | Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Auth Overlay (Modal) -->
+    <div id="auth-overlay" class="splash-container" style="display: none; position: fixed; top: 0; left: 0; z-index: 2000; width: 100%; height: 100%;">
+        <div class="splash-content">
+            <div class="logo" style="margin-bottom: 20px;">THE DAILY <span>GRIND</span></div>
+            <h2 id="auth-title">Welcome Back</h2>
+            <div class="auth-form">
+                <input type="text" id="username" placeholder="Full Name" required>
+                <input type="password" id="password" placeholder="Enter Password" required>
+                <button onclick="handleAuth()" id="auth-btn" class="view-menu-btn" style="width: 100%; border: none; cursor: pointer; margin-top: 10px;">Login</button>
+            </div>
+            <p class="auth-toggle">
+                Don't have an account? <a href="#" onclick="toggleAuth()">Sign Up</a>
+            </p>
+            <button onclick="closeAuth()" style="background: none; border: none; color: #888; margin-top: 15px; cursor: pointer; font-size: 0.8rem;">Cancel</button>
+        </div>
+    </div>
+
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo">THE DAILY <span>GRIND</span></div>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+            <li class="profile-link" style="display: none;"><a href="profile.html" onclick="toggleMenu()">Profile</a></li>
+            <li class="admin-link" style="display: none;"><a href="admin.html" onclick="toggleMenu()">Admin Panel</a></li>
+            <li><a href="coffee.html" onclick="toggleMenu()">Coffee & Tea</a></li>
+            <li><a href="breakfast.html" onclick="toggleMenu()">Breakfast</a></li>
+            <li><a href="dessert.html" onclick="toggleMenu()">Dessert</a></li>
+        </ul>
+        <div class="nav-right-spacer" id="nav-auth-controls">
+            <button id="nav-signup-btn" onclick="openAuth('signup')" class="logout-btn" style="margin-right: 10px; border-color: var(--accent); color: var(--accent);">Sign Up</button>
+            <button id="nav-login-btn" onclick="openAuth('login')" class="logout-btn" style="margin-right: 10px;">Login</button>
+            <button id="nav-logout-btn" onclick="logout()" class="logout-btn" style="display: none;">Logout</button>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1>Better Coffee, Better Mornings.</h1>
+            <p>Freshly roasted beans delivered from farm to cup.</p>
+            <a href="javascript:void(0)" id="hero-signup-btn" onclick="openAuth('signup')" class="view-menu-btn">Join the Club</a>
+        </div>
+    </header>
+
+    <section class="menu-section" id="menu">
+        <h1>House Specialties</h1>
+        <div class="menu-container">
+            <!-- Caramel Macchiato -->
+            <a href="details.html?id=caramel-macchiato" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/44/c8/68/44c8684d4f81e86197c69abfbbf74b56.jpg" alt="Caramel Macchiato" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Caramel Macchiato</h3>
+                    <span class="price">$5.75</span>
+                    <div class="menu-details">
+                        <p>Fresh espresso with velvet milk and rich caramel.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Oat Milk Latte -->
+            <a href="details.html?id=oat-milk-latte" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/f6/59/e9/f659e9e7ddb7986877cdd9f052a3114a.jpg" alt="Oat Milk Latte" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Oat Milk Latte</h3>
+                    <span class="price">$5.50</span>
+                    <div class="menu-details">
+                        <p>Creamy oat milk paired with our signature roast.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Cold Brew -->
+            <a href="details.html?id=cold-brew" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/a0/8b/61/a08b618b6bbe45c5f3ae62ffdaff1d7d.jpg" alt="Cold Brew" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Cold Brew</h3>
+                    <span class="price">$6.00</span>
+                    <div class="menu-details">
+                        <p>Slow-steeped for 24 hours for ultimate smoothness.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Matcha Latte -->
+            <a href="details.html?id=matcha-latte" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/f3/35/3d/f3353da22218a4de90629ea801d6d0ff.jpg" alt="Matcha Latte" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Matcha Latte</h3>
+                    <span class="price">$5.75</span>
+                    <div class="menu-details">
+                        <p>Stone-ground premium matcha whisked with creamy steamed milk.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Cortado -->
+            <a href="details.html?id=cortado" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/cb/ff/53/cbff53f6656a90d44d4fb33ba4f07e2b.jpg" alt="Cortado" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Cortado</h3>
+                    <span class="price">$5.00</span>
+                    <div class="menu-details">
+                        <p>Equal parts espresso and warm silky steamed milk.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Tiramisu -->
+            <a href="details.html?id=tiramisu" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/32/e5/cd/32e5cdbaeead33b470fc72653c6071a2.jpg" alt="Tiramisu" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Tiramisu</h3>
+                    <span class="price">$6.50</span>
+                    <div class="menu-details">
+                        <p>Classic Italian dessert with coffee-soaked ladyfingers and mascarpone.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Strawberry Cheesecake -->
+            <a href="details.html?id=strawberry-cheesecake" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/a1/6f/ee/a16feec47b6037e76b672b72078a9a6a.jpg" alt="Strawberry Cheesecake" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Strawberry Cheesecake</h3>
+                    <span class="price">$7.00</span>
+                    <div class="menu-details">
+                        <p>Creamy cheesecake topped with fresh, sweet strawberries.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Affogato -->
+            <a href="details.html?id=affogato" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/736x/fa/53/e3/fa53e3e1feb8a0cbaef9ff08d8304ed7.jpg" alt="Affogato" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Affogato</h3>
+                    <span class="price">$5.25</span>
+                    <div class="menu-details">
+                        <p>A scoop of vanilla ice cream drowned in a shot of hot espresso.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Cinnamon Rolls -->
+            <a href="details.html?id=cinnamon-rolls" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://i.pinimg.com/1200x/12/ac/6b/12ac6b6baa09b1894fcbfb13fe515463.jpg" alt="Cinnamon Rolls" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Cinnamon Rolls</h3>
+                    <span class="price">$4.50</span>
+                    <div class="menu-details">
+                        <p>Freshly baked rolls with cinnamon sugar and cream cheese glaze.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 The Daily Grind</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

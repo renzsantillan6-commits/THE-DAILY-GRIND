@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakfast | The Daily Grind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+            <div class="logo">THE DAILY <span>GRIND</span></div>
+        </div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="home.html" onclick="toggleMenu()">Home</a></li>
+            <li class="profile-link" style="display: none;"><a href="profile.html" onclick="toggleMenu()">Profile</a></li>
+            <li><a href="coffee.html" onclick="toggleMenu()">Coffee & Tea</a></li>
+            <li><a href="breakfast.html" onclick="toggleMenu()">Breakfast</a></li>
+            <li><a href="dessert.html" onclick="toggleMenu()">Dessert</a></li>
+        </ul>
+        <div class="nav-right-spacer">
+            <button id="nav-logout-btn" onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <section class="menu-section">
+        <h1>Breakfast Specials</h1>
+        <div class="menu-container">
+            <a href="details.html?id=avocado-toast" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=1200&auto=format&fit=crop" alt="Avocado Toast" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Avocado Toast</h3>
+                    <span class="price">$8.50</span>
+                </div>
+            </a>
+            <a href="details.html?id=pancakes" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=1200&auto=format&fit=crop" alt="Classic Pancakes" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Classic Pancakes</h3>
+                    <span class="price">$9.00</span>
+                </div>
+            </a>
+            <a href="details.html?id=breakfast-burrito" class="menu-item" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=1200&auto=format&fit=crop" alt="Breakfast Burrito" class="menu-img">
+                <div class="menu-text-content">
+                    <h3>Breakfast Burrito</h3>
+                    <span class="price">$10.00</span>
+                </div>
+            </a>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
